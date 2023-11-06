@@ -649,13 +649,10 @@ export const isDynamicLeaf = (
   if (!unEvalTree.hasOwnProperty(entityName)) return false;
 
   const entityConfig = configTree[entityName];
-  const entity = unEvalTree[entityName];
-  if (!isAction(entity) && !isWidget(entity) && !isJSAction(entity))
-    return false;
   const relativePropertyPath = convertPathToString(propPathEls);
   return (
-    (!isEmpty(entityConfig.reactivePaths) &&
-      relativePropertyPath in entityConfig.reactivePaths) ||
+    (!isEmpty(entityConfig.bindingPaths) &&
+      relativePropertyPath in entityConfig.bindingPaths) ||
     (isWidget(entityConfig) &&
       relativePropertyPath in entityConfig?.triggerPaths)
   );

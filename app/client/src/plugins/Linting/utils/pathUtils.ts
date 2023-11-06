@@ -72,12 +72,12 @@ export class PathUtils {
 
     const entityConfig = entity.getConfig() as Record<string, unknown>;
     if (!entityConfig) return false;
-    const reactivePaths = entityConfig.reactivePaths as Record<string, unknown>;
+    const bindingPaths = entityConfig.bindingPaths as Record<string, unknown>;
 
     if (!isDynamicEntity(entity) || !entityConfig) return false;
     const relativePropertyPath = convertPathToString(propPathEls);
     return (
-      relativePropertyPath in reactivePaths ||
+      relativePropertyPath in bindingPaths ||
       (isWidgetEntity(entity) &&
         relativePropertyPath in entity.getConfig().triggerPaths)
     );

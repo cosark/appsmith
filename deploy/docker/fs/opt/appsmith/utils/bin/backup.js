@@ -6,6 +6,8 @@ const utils = require('./utils');
 const Constants = require('./constants');
 const logger = require('./logger');
 const mailer = require('./mailer');
+const tty = require('tty');
+const readlineSync = require('readline-sync');
 
 const command_args = process.argv.slice(3);
 
@@ -54,6 +56,9 @@ async function run() {
     if (encryptArchive){
         const encryptedArchivePath = await encryptBackupArchive(archivePath,encryptionPassword);
         logger.backup_info('Finished creating an encrypted a backup archive at ' + encryptedArchivePath);
+        if (archivePath != null) {
+          await fsPromises.rm(archivePath, { recursive: true, force: true });
+        }
     }
     else {
       logger.backup_info('Finished creating a backup archive at ' + archivePath);
@@ -65,7 +70,7 @@ async function run() {
 
     await fsPromises.rm(backupRootPath, { recursive: true, force: true });
 
-    logger.backup_info('Finished taking a backup at' + archivePath);
+    logger.backup_info('Finished taking a backup at ' + archivePath);
 
   } catch (err) {
     errorCode = 1;
@@ -80,9 +85,13 @@ async function run() {
       }
     }
   } finally {
-    await fsPromises.rm(backupRootPath, { recursive: true, force: true });
+    if (backupRootPath != null) {
+      await fsPromises.rm(backupRootPath, { recursive: true, force: true });
+    }
     if (encryptArchive) {
-       await fsPromises.rm(archivePath, { recursive: true, force: true });
+      if (archivePath != null) {
+        await fsPromises.rm(archivePath, { recursive: true, force: true });
+      }
     }
     await postBackupCleanup();
     process.exit(errorCode);
@@ -144,7 +153,6 @@ async function exportDockerEnvFile(destFolder, encryptArchive) {
     cleaned_content += '\nAPPSMITH_ENCRYPTION_SALT=' + process.env.APPSMITH_ENCRYPTION_SALT +
     '\nAPPSMITH_ENCRYPTION_PASSWORD=' + process.env.APPSMITH_ENCRYPTION_PASSWORD
   }
-  const cleaned_content = removeSensitiveEnvData(content)
   await fsPromises.writeFile(destFolder + '/docker.env', cleaned_content);
   console.log('Exporting docker environment file done.');
   console.log('!!!!!!!!!!!!!!!!!!!!!!!!!! Important !!!!!!!!!!!!!!!!!!!!!!!!!!');

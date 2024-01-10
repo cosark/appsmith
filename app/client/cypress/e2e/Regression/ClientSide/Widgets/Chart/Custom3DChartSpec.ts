@@ -10,9 +10,6 @@ describe(
   { tags: ["@tag.Widget", "@tag.Chart"] },
   function () {
     it("1. 3D EChart Custom Chart Widget Functionality", function () {
-      featureFlagIntercept({
-        release_custom_echarts_enabled: true,
-      });
       _.agHelper.RefreshPage();
       _.entityExplorer.DragDropWidgetNVerify(_.draggableWidgets.CHART);
 

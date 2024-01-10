@@ -1,16 +1,11 @@
-import React, { useCallback, useMemo } from "react";
-import "./styles.css";
+import React, { useCallback } from "react";
+import styles from "./styles.module.css";
 import type { BaseWidgetProps } from "widgets/BaseWidgetHOC/withBaseWidgetHOC";
 import { getAnvilCanvasId } from "./utils";
 import { LayoutProvider } from "../layoutComponents/LayoutProvider";
 import { useClickToClearSelections } from "./useClickToClearSelections";
 
 export const AnvilCanvas = (props: BaseWidgetProps) => {
-  const className: string = useMemo(
-    () => `anvil-canvas ${props.classList?.join(" ")}`,
-    [props.classList],
-  );
-
   const clickToClearSelections = useClickToClearSelections(props.widgetId);
   const handleOnClickCapture = useCallback(
     (event) => {
@@ -21,7 +16,7 @@ export const AnvilCanvas = (props: BaseWidgetProps) => {
 
   return (
     <div
-      className={className}
+      className={styles.anvilCanvas}
       id={getAnvilCanvasId(props.widgetId)}
       onClick={handleOnClickCapture}
     >

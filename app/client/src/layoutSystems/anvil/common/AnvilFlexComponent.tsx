@@ -126,10 +126,8 @@ export function AnvilFlexComponent(props: AnvilFlexComponentProps) {
       flexGrow: props.flexGrow ? props.flexGrow : isFillWidget ? 1 : 0,
       flexShrink: isFillWidget ? 1 : 0,
       flexBasis: isFillWidget ? "0%" : "auto",
-      height: "auto",
       padding: "spacing-1",
-      width: "auto",
-      minHeight: { base: "var(--sizing-12)" },
+      minHeight: { base: "sizing-12" },
       alignItems: "center",
     };
     if (props?.widgetSize) {
@@ -172,16 +170,12 @@ export function AnvilFlexComponent(props: AnvilFlexComponentProps) {
       {...flexProps}
       className={className}
       id={getAnvilWidgetDOMId(props.widgetId)}
+      onClick={stopEventPropagation}
+      onClickCapture={onClickFn}
       ref={ref}
       style={styleProps}
     >
-      <div
-        className="w-full h-full"
-        onClick={stopEventPropagation}
-        onClickCapture={onClickFn}
-      >
-        {props.children}
-      </div>
+      {props.children}
     </Flex>
   );
 }

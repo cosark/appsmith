@@ -99,8 +99,11 @@ export const containerDimensionStyles = <T = FlexCssProps[keyof FlexCssProps]>(
           };}}`
         );
       } else {
-        //@ts-expect-error: type mismatch
-        return prev + `${cssProp}: ${value[current]};`;
+        return (
+          prev +
+          //@ts-expect-error: type mismatch
+          `${cssProp}: ${callback ? callback(value[current]) : value[current]};`
+        );
       }
     }, "");
   }

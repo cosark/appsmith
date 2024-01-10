@@ -26,7 +26,7 @@ export const getResponsiveMinWidth = (
   const minWidth = config["base"];
   return {
     ...config,
-    base: `max(100%, ${minWidth})`, // using a max between 100% and minWidth because zones can go below mobile breakpoints even on larger screens.
+    base: "100%",
     [`${MOBILE_BREAKPOINT}px`]: config[`${MOBILE_BREAKPOINT}px`] ?? minWidth,
   };
 };
@@ -73,11 +73,11 @@ export const getWidgetSizeConfiguration = (
 
   return {
     ...res,
-    minHeight: Object.keys(res.minHeight).length
-      ? res.minHeight
-      : {
-          base: `${WidgetFactory.widgetConfigMap.get(type)?.minHeight || 80}px`,
-        },
+    // minHeight: Object.keys(res.minHeight).length
+    //   ? res.minHeight
+    //   : {
+    //       base: `${WidgetFactory.widgetConfigMap.get(type)?.minHeight || 80}px`,
+    //     },
     minWidth: Object.keys(res.minWidth).length
       ? res.minWidth
       : {

@@ -114,10 +114,7 @@ class WDSInputWidget extends WDSBaseInputWidget<InputWidgetProps, WidgetState> {
     return {
       isLargeWidget: false,
       widgetSize: {
-        maxHeight: {},
-        maxWidth: {},
-        minHeight: { base: "70px" },
-        minWidth: { base: "120px" },
+        minWidth: { base: "sizing-28" },
       },
     };
   }

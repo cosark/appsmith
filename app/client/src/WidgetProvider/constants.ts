@@ -58,7 +58,7 @@ export interface AutoLayoutConfig {
 export interface SizeConfig {
   maxHeight?: Record<string, string>;
   maxWidth?: Record<string, string>;
-  minHeight: Record<string, string>;
+  minHeight?: Record<string, string>;
   minWidth: Record<string, string>;
 }
 

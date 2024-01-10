@@ -100,10 +100,10 @@ const Canvas = (props: CanvasProps) => {
         {props.widgetsStructure.widgetId &&
           renderAppsmithCanvas({
             ...props.widgetsStructure,
-            classList:
-              layoutSystemType === LayoutSystemTypes.ANVIL
-                ? ["main-anvil-canvas"]
-                : [],
+            // classList:
+            //   layoutSystemType === LayoutSystemTypes.ANVIL
+            //     ? ["main-anvil-canvas"]
+            //     : [],
           } as WidgetProps)}
       </Wrapper>
     );
@@ -112,7 +112,9 @@ const Canvas = (props: CanvasProps) => {
   try {
     if (isWDSEnabled) {
       return (
-        <WDSThemeProvider theme={theme}>{renderChildren()}</WDSThemeProvider>
+        <WDSThemeProvider style={{ height: "100%" }} theme={theme}>
+          {renderChildren()}
+        </WDSThemeProvider>
       );
     }
 

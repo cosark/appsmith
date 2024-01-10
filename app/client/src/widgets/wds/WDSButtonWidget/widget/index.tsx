@@ -102,9 +102,9 @@ class WDSButtonWidget extends BaseWidget<ButtonWidgetProps, ButtonWidgetState> {
       isLargeWidget: false,
       widgetSize: {
         maxHeight: {},
-        maxWidth: { base: "360px" },
-        minHeight: { base: "40px" },
-        minWidth: { base: "128px" },
+        maxWidth: { base: "sizing-90" },
+        // minHeight: { base: "40px" },
+        minWidth: { base: "sizing-32" },
       },
     };
   }

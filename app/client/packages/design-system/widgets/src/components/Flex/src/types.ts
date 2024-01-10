@@ -1,4 +1,4 @@
-import type { ReactNode, CSSProperties } from "react";
+import type { ReactNode, CSSProperties, MouseEventHandler } from "react";
 import type { SizingDimension, SpacingDimension } from "./dimensions";
 
 export type Responsive<T> =
@@ -209,6 +209,12 @@ export interface FlexProps
   style?: CSSProperties;
   /** Sets the HTML [id](https://developer.mozilla.org/en-US/docs/Web/API/Element/id) for the element. */
   id?: string;
+
+  /*
+   * Events props
+   */
+  onClick?: MouseEventHandler | undefined;
+  onClickCapture?: MouseEventHandler | undefined;
 }
 
 export type FlexCssProps = Omit<

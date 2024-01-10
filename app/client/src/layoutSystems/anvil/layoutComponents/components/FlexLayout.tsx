@@ -120,7 +120,7 @@ export const FlexLayout = React.memo((props: FlexLayoutProps) => {
       maxWidth: maxWidth || "none",
       minHeight: minHeight || "unset",
       minWidth: minWidth || "unset",
-      padding: padding || (isDropTarget ? `spacing-0` : "0px"),
+      padding: padding || "spacing-0",
       rowGap: rowGap || "0px",
       width: width || "auto",
       wrap: wrap || "nowrap",

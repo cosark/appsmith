@@ -279,14 +279,12 @@ Cypress.Commands.add("LogOutUser", () => {
 Cypress.Commands.add("LoginUser", (uname, pword, goToLoginPage = true) => {
   goToLoginPage && cy.visit("/user/login", { timeout: 60000 });
   cy.wait(3000); //for login page to load fully for CI runs
-  cy.wait("@signUpLogin")
-    .its("response.body.responseMeta.status")
-    .should("eq", 200);
+  cy.wait("@getConsolidatedData");
   cy.get(loginPage.username).should("be.visible");
   cy.get(loginPage.username).type(uname);
   cy.get(loginPage.password).type(pword, { log: false });
   cy.get(loginPage.submitBtn).click();
-  cy.wait("@getMe");
+  cy.wait("@getConsolidatedData");
   cy.wait(3000);
 });
 
@@ -310,7 +308,7 @@ Cypress.Commands.add("Signup", (uname, pword) => {
   homePageTS.InvokeDispatchOnStore();
   cy.wait("@postLogout");
   cy.visit("/user/signup", { timeout: 60000 });
-  cy.wait("@signUpLogin")
+  cy.wait("@getConsolidatedData")
     .its("response.body.responseMeta.status")
     .should("eq", 200);
   agHelper.WaitUntilEleAppear(signupPage.username);
@@ -324,7 +322,7 @@ Cypress.Commands.add("Signup", (uname, pword) => {
       cy.get(signupPage.getStartedSubmit).click({ force: true });
     }
   });
-  cy.wait("@getMe");
+  cy.wait("@getConsolidatedData");
   cy.wait(3000);
   initLocalstorage();
 });
@@ -371,7 +369,7 @@ Cypress.Commands.add("LoginFromAPI", (uname, pword) => {
     if (CURRENT_REPO === REPO.EE) {
       cy.wait(2000);
     } else {
-      assertHelper.AssertNetworkStatus("getMe");
+      assertHelper.AssertNetworkStatus("getConsolidatedData");
       assertHelper.AssertNetworkStatus("applications");
       assertHelper.AssertNetworkStatus("getReleaseItems");
     }
@@ -415,7 +413,7 @@ Cypress.Commands.add("LogOut", (toCheckgetPluginForm = true) => {
 
   if (CURRENT_REPO === REPO.CE)
     toCheckgetPluginForm &&
-      assertHelper.AssertNetworkResponseData("@getPluginForm", false);
+      assertHelper.AssertNetworkResponseData("@getConsolidatedData", false);
 
   cy.request({
     method: httpMethod,
